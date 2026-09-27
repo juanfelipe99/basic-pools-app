@@ -1,5 +1,4 @@
-const configured = import.meta.env.VITE_API_URL
-const API_URL = (configured || (import.meta.env.DEV ? '/api' : '')).replace(/\/$/, '')
+const API_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '')
 
 export interface PoolOption {
   id: number
