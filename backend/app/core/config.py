@@ -6,6 +6,7 @@ class Settings(BaseSettings):
 
     DATABASE_URL: str = "sqlite:///./polls.db"
     CORS_ORIGINS: str = "http://localhost:5173"
+    IP_HASH_SECRET: str = "change-me"
 
     @property
     def cors_origins_list(self) -> list[str]:

@@ -58,6 +58,8 @@ class Pool(TimestampMixin, Base):
     user_id: Mapped[int | None] = mapped_column(
         ForeignKey("users.id", ondelete="SET NULL"), default=None
     )
+    # SHA-256 of the admin token returned once on creation; required to edit or delete
+    admin_token_hash: Mapped[str] = mapped_column(String(64))
 
     user: Mapped["User | None"] = relationship(back_populates="pools")
     options: Mapped[list["Option"]] = relationship(
@@ -68,6 +70,22 @@ class Pool(TimestampMixin, Base):
     votes: Mapped[list["Vote"]] = relationship(
         back_populates="pool", cascade="all, delete-orphan"
     )
+
+    @property
+    def is_open(self) -> bool:
+        if not self.is_active:
+            return False
+        if self.closes_at is None:
+            return True
+        # SQLite returns naive datetimes; stored values are UTC
+        closes_at = self.closes_at
+        if closes_at.tzinfo is None:
+            closes_at = closes_at.replace(tzinfo=timezone.utc)
+        return closes_at > utc_now()
+
+    @property
+    def has_votes(self) -> bool:
+        return any(option.votes_count > 0 for option in self.options)
 
 
 class Option(TimestampMixin, Base):
@@ -98,7 +116,7 @@ class Vote(TimestampMixin, Base):
     option_id: Mapped[int] = mapped_column(
         ForeignKey("options.id", ondelete="CASCADE"), index=True
     )
-    # SHA-256 hex digest of the voter's IP; raw IPs are never stored
+    # HMAC-SHA256 hex digest of the voter's IP; raw IPs are never stored
     ip_hash: Mapped[str] = mapped_column(String(64))
 
     pool: Mapped["Pool"] = relationship(back_populates="votes")

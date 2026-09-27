@@ -21,6 +21,13 @@ def to_utc(value: datetime) -> datetime:
 UTCDatetime = Annotated[datetime, AfterValidator(to_utc)]
 
 
+def reject_null(value: object) -> object:
+    # Validators only run on provided fields, so this rejects an explicit null
+    if value is None:
+        raise ValueError("Field cannot be null")
+    return value
+
+
 class InputSchema(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
 
@@ -55,6 +62,8 @@ class OptionUpdate(InputSchema):
     text: str | None = Field(default=None, min_length=1, max_length=200)
     position: int | None = Field(default=None, ge=0)
 
+    _not_null = field_validator("text", "position")(reject_null)
+
 
 class OptionRead(ReadSchema):
     id: int
@@ -88,6 +97,8 @@ class PoolUpdate(InputSchema):
     is_active: bool | None = None
     closes_at: UTCDatetime | None = None
 
+    _not_null = field_validator("name", "is_active")(reject_null)
+
 
 class PoolRead(ReadSchema):
     id: int
@@ -95,6 +106,7 @@ class PoolRead(ReadSchema):
     name: str
     description: str | None
     is_active: bool
+    is_open: bool
     closes_at: UTCDatetime | None
     user_id: int | None
     options: list[OptionRead]
@@ -103,6 +115,10 @@ class PoolRead(ReadSchema):
     @property
     def total_votes(self) -> int:
         return sum(option.votes_count for option in self.options)
+
+
+class PoolCreated(PoolRead):
+    admin_token: str
 
 
 # ---------- Vote ----------
