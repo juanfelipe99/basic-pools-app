@@ -22,6 +22,14 @@ uvicorn app.main:app --reload
 
 API disponible en http://localhost:8000 (documentación en http://localhost:8000/docs).
 
+### Tests
+
+```bash
+cd backend
+pip install -r requirements-dev.txt
+pytest
+```
+
 ## Frontend
 
 ```bash
