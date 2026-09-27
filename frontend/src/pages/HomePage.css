@@ -1,0 +1,97 @@
+.home {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 48px 0 24px;
+}
+
+.home-intro {
+  max-width: 640px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.home-title {
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.home-lede {
+  max-width: 420px;
+  margin: 14px auto 36px;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.home-composer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.owned {
+  width: min(420px, 100%);
+  margin-top: 64px;
+}
+
+.owned-title {
+  margin-bottom: 8px;
+  padding: 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.owned-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.owned-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  border-radius: var(--radius-field);
+  text-decoration: none;
+  transition: background-color 0.2s var(--ease);
+}
+
+.owned-item:hover {
+  background: var(--accent-soft);
+}
+
+.owned-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.owned-date {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.owned-arrow {
+  color: var(--muted);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 0.2s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.owned-item:hover .owned-arrow,
+.owned-item:focus-visible .owned-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}

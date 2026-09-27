@@ -1,0 +1,35 @@
+.created-pool {
+  display: grid;
+  gap: 22px;
+}
+
+.created-pool-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.created-pool-badge {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.created-pool-name {
+  margin-top: 2px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.created-pool-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}

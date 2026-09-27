@@ -1,0 +1,35 @@
+.copy-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 5px 5px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+}
+
+.copy-link-url {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 13px;
+  text-overflow: ellipsis;
+}
+
+.copy-link-url:focus {
+  outline: none;
+}
+
+.copy-link-btn {
+  flex: none;
+  height: 34px;
+  min-width: 132px;
+}
+
+.copy-link-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}

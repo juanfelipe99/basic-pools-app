@@ -1,0 +1,32 @@
+.manage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 14px;
+}
+
+.manage-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.manage-copy .hint {
+  margin-top: 2px;
+}
+
+.manage-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.manage-error {
+  flex-basis: 100%;
+}
